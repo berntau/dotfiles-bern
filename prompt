@@ -1,11 +1,12 @@
 # ~/.config/zsh/prompt
 # Configura o prompt via Starship.
-# Gera o starship.toml a partir de um preset pronto.
+#
+# O visual (preset "Pastel Powerline" + relógio com coração ♡) fica no
+# starship.toml versionado neste repo. NÃO regeneramos o toml a cada
+# shell de propósito: assim as customizações (coração, quebra de linha,
+# character ❯) não são apagadas. Pra recomeçar de um preset limpo:
+#   starship preset pastel-powerline -o ~/.config/starship.toml
 #
 # Presets disponíveis em: https://starship.rs/presets/
-# O Akita usa o "Pure Prompt" no dia a dia, mas cita o "Pastel Powerline"
-# como alternativa mais colorida/chamativa.
-
-starship preset bracketed-segments -o ~/.config/starship.toml
 
 eval "$(starship init zsh)"
