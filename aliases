@@ -1,0 +1,24 @@
+# ~/.config/zsh/aliases
+
+# Alterna a entrada do monitor (HDMI/DisplayPort) via ddcutil
+# -- específico do setup de 2 monitores/2 GPUs do Akita, ajuste ou remova
+alias monhd="sudo ddcutil -d 1 setvcp 60 0x12"
+alias mondp="sudo ddcutil -d 1 setvcp 60 0x0F"
+
+# ChatGPT direto no terminal via Docker (shell-gpt)
+alias sgpt='docker run --rm -e OPENAI_API_BASE=${OPENAI_API_BASE} -e OPENAI_API_KEY=${OPENROUTER_API_KEY} ghcr.io/tbckr/sgpt:latest txt '
+
+# Evita autocorreção do zsh pro comando git
+alias git='nocorrect git'
+
+# Aliases curtos de git (g a, g c, g ps, g pl, g l, g s, g co, g b...)
+git config --global alias.a 'add'
+git config --global alias.ps 'push'
+git config --global alias.pl 'pull'
+git config --global alias.l 'log'
+git config --global alias.c 'commit -m'
+git config --global alias.s 'status'
+git config --global alias.co 'checkout'
+git config --global alias.b 'branch'
+
+# Adicione mais aliases conforme seu workflow abaixo:

@@ -1,0 +1,2 @@
+# Nunca commitar o arquivo de segredos real (chaves de API, tokens etc)
+secrets

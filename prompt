@@ -1,0 +1,11 @@
+# ~/.config/zsh/prompt
+# Configura o prompt via Starship.
+# Gera o starship.toml a partir de um preset pronto.
+#
+# Presets disponíveis em: https://starship.rs/presets/
+# O Akita usa o "Pure Prompt" no dia a dia, mas cita o "Pastel Powerline"
+# como alternativa mais colorida/chamativa.
+
+starship preset bracketed-segments -o ~/.config/starship.toml
+
+eval "$(starship init zsh)"

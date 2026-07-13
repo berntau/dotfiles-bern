@@ -1,0 +1,9 @@
+# ~/.config/zsh/envs
+# Envs de exemplo do Akita pra testes com Ollama/OpenRouter.
+# Ajuste os valores (ou apague) conforme seu próprio setup.
+
+export OPENAI_API_BASE="https://openrouter.ai/api/v1"
+export DEFAULT_MODEL="o1-mini"
+export OLLAMA_API_BASE=http://127.0.0.1:11434
+export OLLAMA_HOME=http://127.0.0.1:11434
+export OLLAMA_MODELS=/mnt/gigachad/ollama/models
