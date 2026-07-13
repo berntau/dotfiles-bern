@@ -1,49 +1,74 @@
-# omarchy-zsh (reconstrução)
+# dotfiles-bern
 
-Reconstrução do `~/.config/zsh` do Akita, baseada no post
-[Omarchy 2.0 - ZSH Configs](https://akitaonrails.com/2025/09/07/omarchy-2-0-zsh-configs/),
-já que o repositório original `github.com/akitaonrails/omarchy-zsh` está
-retornando 404 (não existe mais publicamente).
+Meus dotfiles portáteis — pra reconfigurar rápido o terminal que eu gosto
+(zsh + starship + zoxide + atuin) toda vez que eu troco de máquina ou SO.
 
-## Como instalar
+Base: config `~/.config/zsh` do Akita, reconstruída a partir do post
+[Omarchy 2.0 - ZSH Configs](https://akitaonrails.com/2025/09/07/omarchy-2-0-zsh-configs/)
+(o repo original `github.com/akitaonrails/omarchy-zsh` saiu do ar — 404).
 
-1. Garanta que tem zsh, zoxide, starship e atuin instalados:
-   ```bash
-   yay -S zsh zoxide starship atuin
-   chsh -s $(which zsh)
-   ```
+## Instalação rápida (máquina nova)
 
-2. Copie esta pasta pra `~/.config/zsh`:
-   ```bash
-   mkdir -p ~/.config/zsh
-   cp .zshrc prompt aliases envs secrets ~/.config/zsh/
-   ln -sf ~/.config/zsh/.zshrc ~/.zshrc
-   ```
+```bash
+git clone git@github.com:berntau/dotfiles-bern.git
+cd dotfiles-bern
+./install.sh
+```
 
-3. Proteja o arquivo de segredos e edite com suas chaves de verdade:
-   ```bash
-   chmod 600 ~/.config/zsh/secrets
-   nano ~/.config/zsh/secrets
-   ```
+O `install.sh` é **idempotente** (pode rodar de novo sem medo) e faz:
 
-4. Ajuste `aliases` e `envs` como preferir (os aliases de monitor
-   `monhd`/`mondp` são específicos do setup de 2 GPUs do Akita — pode
-   remover se não usar `ddcutil`).
+- instala `zsh zoxide starship atuin` (via `pacman` no Arch; em outros SO
+  ele avisa o que falta instalar na mão);
+- define o `zsh` como shell padrão (`chsh`);
+- cria **symlinks** de `~/.config/zsh/*` e `~/.config/starship.toml`
+  apontando pra este repo — então depois é só `git pull` pra atualizar;
+- cria `~/.config/zsh/secrets` (com `chmod 600`) a partir do
+  `secrets.example`, se ainda não existir.
 
-5. Configure o Atuin (opcional, mas recomendado se quiser histórico
-   sincronizado e encriptado entre máquinas):
+Depois, abra um terminal novo (ou rode `zsh`).
+
+## O que tem aqui
+
+| Arquivo | O quê |
+|---|---|
+| `.zshrc` | entrypoint: faz `source` dos demais |
+| `aliases` | aliases de shell + aliases de git (`git config`) |
+| `envs` | variáveis de ambiente (Ollama, OpenRouter etc) |
+| `prompt` | inicializa o starship (`eval`) |
+| `starship.toml` | tema do prompt: preset *pastel-powerline* + relógio `♡` |
+| `secrets.example` | template pro `secrets` (o real é gitignorado) |
+| `install.sh` | bootstrap idempotente |
+
+## Depois de instalar
+
+1. Edite `~/.config/zsh/secrets` com suas chaves reais (API keys, tokens).
+   O arquivo é gitignorado — nunca vai pro repo.
+2. Ajuste `aliases`/`envs` como preferir. Os aliases de monitor
+   `monhd`/`mondp` são específicos de setup com `ddcutil` — remova se não usar.
+3. **Fonte:** o prompt usa glifos powerline/Nerd Font. Se os ícones saírem
+   quebrados, instale uma Nerd Font (ex.: *CaskaydiaCove Nerd Font*).
+4. **Atuin** (opcional — histórico sincronizado e encriptado entre máquinas):
    ```bash
    atuin register -u <seu-usuario> -e <seu-email>
    atuin import auto
    atuin sync
    ```
-   Guarde a chave de encriptação gerada em um cofre de senhas — sem
-   ela não dá pra recuperar o histórico numa reinstalação.
+   Guarde a chave de encriptação num cofre de senhas — sem ela não dá pra
+   recuperar o histórico numa reinstalação.
 
-6. Logout/login (ou abra um terminal novo) pra tudo entrar em vigor.
+## Atualizar a config
+
+Como tudo é symlink pro repo, basta:
+
+```bash
+cd ~/Documents/github/dotfiles-bern   # ou onde você clonou
+git pull
+```
+
+Editou algo? Commite e mande pro GitHub — nas outras máquinas é só dar `git pull`.
 
 ## O que ficou de fora
 
-O `.zshrc` original tinha uma linha extra `source ~/.config/zsh/mounts`
-que o próprio Akita recomenda remover — é só pra checar os mounts NFS
-do NAS pessoal dele.
+O `.zshrc` original do Akita tinha uma linha `source ~/.config/zsh/mounts`
+que ele mesmo recomenda remover — era só pra checar os mounts NFS do NAS
+pessoal dele.
